@@ -1,0 +1,48 @@
+--- origsrc/gio-sharp/configure.ac.in	2011-02-28 19:21:43.000000000 -0600
++++ src/gio-sharp/configure.ac.in	2011-02-28 19:30:16.930355600 -0600
+@@ -36,16 +36,27 @@ PKG_CHECK_MODULES(GLIB, glib-2.0 >= @GLI
+ 
+ CSC_FLAGS="@CSC_FLAGS@"
+ 
+-if test `uname -s` = "Darwin"; then
+-	LIB_PREFIX=
++case `uname -s` in
++CYGWIN*)
++	LIB_PREFIX=cyg
++	LIB_MIDDLE=-
++	LIB_SUFFIX=.dll
++	;;
++Darwin)
++	LIB_PREFIX=lib
++	LIB_MIDDLE=.
+ 	LIB_SUFFIX=.dylib
+-else
+-	LIB_PREFIX=.so
++	;;
++*)
++	LIB_PREFIX=lib
++	LIB_MIDDLE=.so.
+ 	LIB_SUFFIX=
+-fi
++	;;
++esac
+ 
+ AC_SUBST(CSC_FLAGS)
+ AC_SUBST(LIB_PREFIX)
++AC_SUBST(LIB_MIDDLE)
+ AC_SUBST(LIB_SUFFIX)
+ 
+ AC_OUTPUT(
+--- origsrc/gio-sharp/gio/gio-sharp.dll.config.in	2011-02-28 19:21:43.000000000 -0600
++++ src/gio-sharp/gio/gio-sharp.dll.config.in	2011-02-28 19:22:58.943991900 -0600
+@@ -1,6 +1,6 @@
+ <configuration>
+-  <dllmap dll="libgio-2.0-0.dll" target="libgio-2.0@LIB_PREFIX@.0@LIB_SUFFIX@"/>
+-  <dllmap dll="libglib-2.0-0.dll" target="libglib-2.0@LIB_PREFIX@.0@LIB_SUFFIX@"/>
+-  <dllmap dll="libgobject-2.0-0.dll" target="libgobject-2.0@LIB_PREFIX@.0@LIB_SUFFIX@"/>
+-  <dllmap dll="libgthread-2.0-0.dll" target="libgthread-2.0@LIB_PREFIX@.0@LIB_SUFFIX@"/>
++  <dllmap dll="libgio-2.0-0.dll" target="@LIB_PREFIX@gio-2.0@LIB_MIDDLE@0@LIB_SUFFIX@"/>
++  <dllmap dll="libglib-2.0-0.dll" target="@LIB_PREFIX@glib-2.0@LIB_MIDDLE@0@LIB_SUFFIX@"/>
++  <dllmap dll="libgobject-2.0-0.dll" target="@LIB_PREFIX@gobject-2.0@LIB_MIDDLE@0@LIB_SUFFIX@"/>
++  <dllmap dll="libgthread-2.0-0.dll" target="@LIB_PREFIX@gthread-2.0@LIB_MIDDLE@0@LIB_SUFFIX@"/>
+ </configuration>

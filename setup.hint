@@ -1,0 +1,4 @@
+category: DotNET
+requires: libglib2.0_0 mono mono-glib-sharp2.0
+sdesc: ".NET bindings for GIO"
+ldesc: "gio-sharp binds the GIO API for .NET, which isn't available in Gtk#."

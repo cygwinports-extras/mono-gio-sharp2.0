@@ -1,0 +1,17 @@
+ORIG_PN="gio-sharp"
+GIT_TAG=${PV}
+inherit mono git
+
+
+PATCH_URI="0.2-cygwin.patch"
+
+DIFF_EXCLUDES="aclocal.m4 configure configure.ac INSTALL install-sh Makefile.in missing *.raw *.xml"
+
+src_compile() {
+	cd ${S}
+	NOCONFIGURE=1 \
+	./autogen-2.22.sh || error "autogen failed"
+	cd ${B}
+	cygconf
+	cygmake -j1
+}
