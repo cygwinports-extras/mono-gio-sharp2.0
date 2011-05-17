@@ -1,0 +1,8 @@
+ORIG_PN="gio-sharp"
+inherit mono
+
+DESCRIPTION="Mono GIO bindings"
+
+PATCH_URI="2.22.3-cygwin.patch"
+
+MAKEOPTS+=" -j1"

@@ -1,18 +1,20 @@
---- origsrc/gio-sharp/configure.ac.in	2011-02-28 19:21:43.000000000 -0600
-+++ src/gio-sharp/configure.ac.in	2011-02-28 19:30:16.930355600 -0600
-@@ -36,16 +36,27 @@ PKG_CHECK_MODULES(GLIB, glib-2.0 >= @GLI
+--- origsrc/gio-sharp-2.22.3/configure.ac	2011-04-04 17:28:03.000000000 -0500
++++ src/gio-sharp-2.22.3/configure.ac	2011-05-17 18:02:34.575142500 -0500
+@@ -36,16 +36,28 @@ PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.22
  
- CSC_FLAGS="@CSC_FLAGS@"
+ CSC_FLAGS="-d:GIO_SHARP_2_22"
  
 -if test `uname -s` = "Darwin"; then
 -	LIB_PREFIX=
-+case `uname -s` in
-+CYGWIN*)
++AC_CANONICAL_HOST
++
++case "$host_os" in
++cygwin*)
 +	LIB_PREFIX=cyg
 +	LIB_MIDDLE=-
 +	LIB_SUFFIX=.dll
 +	;;
-+Darwin)
++darwin*)
 +	LIB_PREFIX=lib
 +	LIB_MIDDLE=.
  	LIB_SUFFIX=.dylib
@@ -24,7 +26,6 @@
 +	LIB_MIDDLE=.so.
  	LIB_SUFFIX=
 -fi
-+	;;
 +esac
  
  AC_SUBST(CSC_FLAGS)
@@ -33,8 +34,8 @@
  AC_SUBST(LIB_SUFFIX)
  
  AC_OUTPUT(
---- origsrc/gio-sharp/gio/gio-sharp.dll.config.in	2011-02-28 19:21:43.000000000 -0600
-+++ src/gio-sharp/gio/gio-sharp.dll.config.in	2011-02-28 19:22:58.943991900 -0600
+--- origsrc/gio-sharp-2.22.3/gio/gio-sharp.dll.config.in	2011-04-01 20:11:19.000000000 -0500
++++ src/gio-sharp-2.22.3/gio/gio-sharp.dll.config.in	2011-05-17 17:59:46.003500800 -0500
 @@ -1,6 +1,6 @@
  <configuration>
 -  <dllmap dll="libgio-2.0-0.dll" target="libgio-2.0@LIB_PREFIX@.0@LIB_SUFFIX@"/>
